@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_template/domain/usecases/core/get_locale_use_case.dart';
-import 'package:flutter_template/domain/usecases/core/set_locale_use_case.dart';
+import 'package:ehentter/domain/usecases/core/get_locale_use_case.dart';
+import 'package:ehentter/domain/usecases/core/set_locale_use_case.dart';
 
 class LocaleCubit extends Cubit<Locale?> {
   final SetLocaleUseCase _setLocaleUseCase;

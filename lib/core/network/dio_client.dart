@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_template/core/constants/network_config.dart';
+import 'package:ehentter/core/constants/network_config.dart';
 
 class DioClient {
   final Dio _dio;

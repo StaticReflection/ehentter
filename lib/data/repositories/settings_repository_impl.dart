@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/data/sources/local/settings/settings_local_data_source.dart';
-import 'package:flutter_template/domain/repositores/settings_repository.dart';
+import 'package:ehentter/data/sources/local/settings/settings_local_data_source.dart';
+import 'package:ehentter/domain/repositores/settings_repository.dart';
 
 class SettingsRepositoryImpl implements SettingsRepository {
   final SettingsLocalDataSource _dataSource;

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_template/domain/repositores/settings_repository.dart';
+import 'package:ehentter/domain/repositores/settings_repository.dart';
 
 class GetLocaleUseCase {
   final SettingsRepository _settingsRepository;

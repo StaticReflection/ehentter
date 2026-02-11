@@ -9,5 +9,5 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get app_title => 'Flutter 模板';
+  String get app_title => 'Ehentter';
 }

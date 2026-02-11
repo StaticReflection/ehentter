@@ -9,5 +9,5 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get app_title => 'Flutter Template';
+  String get app_title => 'Ehentter';
 }

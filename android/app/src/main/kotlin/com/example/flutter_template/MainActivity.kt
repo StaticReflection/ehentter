@@ -1,4 +1,4 @@
-package com.example.flutter_template
+package com.staticreflection.ehentter
 
 import io.flutter.embedding.android.FlutterActivity
 

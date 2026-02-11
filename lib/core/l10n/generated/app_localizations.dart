@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_title.
   ///
   /// In en, this message translates to:
-  /// **'Flutter Template'**
+  /// **'Ehentter'**
   String get app_title;
 }
 

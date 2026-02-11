@@ -1,4 +1,4 @@
-import 'package:flutter_template/presentation/home/pages/home_page.dart';
+import 'package:ehentter/presentation/home/pages/home_page.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {

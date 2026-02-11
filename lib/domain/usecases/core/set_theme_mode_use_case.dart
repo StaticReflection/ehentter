@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/domain/repositores/settings_repository.dart';
+import 'package:ehentter/domain/repositores/settings_repository.dart';
 
 class SetThemeModeUseCase {
   final SettingsRepository _settingsRepository;

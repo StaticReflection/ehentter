@@ -1,4 +1,4 @@
-import 'package:flutter_template/data/constants/storage_keys.dart';
+import 'package:ehentter/data/constants/storage_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SettingsLocalDataSource {
