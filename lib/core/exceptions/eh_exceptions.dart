@@ -6,8 +6,20 @@ class EhException implements Exception {
 }
 
 class EhParseException extends EhException {
-  EhParseException(super.message);
+  final StackTrace stackTrace;
+  final Type parser; // 解析器类名
+  final String rawData; // 原始输入
+
+  EhParseException(
+    super.message, {
+    required this.stackTrace,
+    required this.parser,
+    required this.rawData,
+  });
 
   @override
-  String toString() => 'EhParseException: $message';
+  String toString() =>
+      'EhParseException[$parser]: $message\n'
+      'StackTrace: $stackTrace\n'
+      '$rawData';
 }

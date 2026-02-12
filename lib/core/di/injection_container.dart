@@ -1,3 +1,4 @@
+import 'package:ehentter/data/parsers/eh_gallery_parsers.dart';
 import 'package:ehentter/data/repositories/eh_gallery_repository_impl.dart';
 import 'package:ehentter/data/sources/remote/eh_gallery_remote_data_source.dart';
 import 'package:ehentter/domain/repositores/eh_gallery_repository.dart';

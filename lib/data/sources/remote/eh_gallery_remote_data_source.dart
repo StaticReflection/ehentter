@@ -1,5 +1,5 @@
 import 'package:ehentter/core/network/dio_client.dart';
-import 'package:ehentter/data/parsers/eh_gallery_parser.dart';
+import 'package:ehentter/data/parsers/eh_gallery_parsers.dart';
 import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:html/dom.dart';
 
@@ -10,7 +10,9 @@ abstract class EhGalleryRemoteDataSource {
 class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
   final DioClient _dioClient;
 
-  EhGalleryRemoteDataSourceImpl(this._dioClient);
+  final EhGalleryPageParser _ehGalleryPageParser;
+
+  EhGalleryRemoteDataSourceImpl(this._dioClient, this._ehGalleryPageParser);
 
   @override
   Future<EhGalleryPageInfo> getGalleryPageInfo(String? query) async {
@@ -19,6 +21,8 @@ class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
       queryParameters: {'f_search': query ?? ''},
     );
 
-    return EhGalleryParser.fromSearchPage(Document.html(response.data));
+    final document = Document.html(response.data);
+
+    return _ehGalleryPageParser(document);
   }
 }
