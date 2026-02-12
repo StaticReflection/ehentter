@@ -8,6 +8,8 @@ import 'package:ehentter/presentation/common/base/app_theme.dart';
 import 'package:ehentter/presentation/common/logic/theme/theme_cubit.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await initDependencies();
 
   runApp(const MainApp());

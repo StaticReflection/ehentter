@@ -24,8 +24,8 @@ part 'eh.dart';
 final GetIt sl = GetIt.instance;
 
 Future<void> initDependencies() async {
-  _initCoreDI();
-  _initEhDI();
+  await _initCoreDI();
+  await _initEhDI();
 
   sl.registerFactory(() => HomeBloc(sl()));
 }
