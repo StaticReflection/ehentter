@@ -1,12 +1,9 @@
+import 'package:ehentter/presentation/common/eh_gallery_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ehentter/core/extensions/build_context.dart';
 import 'package:ehentter/presentation/common/base/base_widget.dart';
-import 'package:ehentter/presentation/common/logic/locale/locale_cubit.dart';
-import 'package:ehentter/presentation/common/logic/theme/theme_cubit.dart';
 import 'package:ehentter/presentation/home/bloc/home_bloc.dart';
-import 'package:ehentter/presentation/home/widgets/locale_selector.dart';
-import 'package:ehentter/presentation/home/widgets/theme_mode_selector.dart';
 
 class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   const HomeView({super.key});
@@ -20,48 +17,13 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
           return switch (state) {
             HomeInitial() ||
             HomeLoading() => const Center(child: CircularProgressIndicator()),
+            HomeLoadFailure() => Center(
+              child: SelectableText(state.errorMessage),
+            ),
             HomeLoaded() => Center(
-              child: Column(
-                spacing: 12,
-                mainAxisAlignment: .center,
-                crossAxisAlignment: .center,
-                children: [
-                  Text('hello world'),
-                  ElevatedButton(
-                    onPressed: () => bloc.add(HomeTest()),
-                    child: Text('test'),
-                  ),
-                  BlocBuilder<LocaleCubit, Locale?>(
-                    builder: (context, state) {
-                      final localeCubit = context.read<LocaleCubit>();
-
-                      return LocaleSelector(
-                        currentLocale: state,
-                        onSelected: (locale) {
-                          if (locale == null) {
-                            localeCubit.useSystemSettings();
-                          } else {
-                            localeCubit.changeLocale(locale);
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  BlocBuilder<ThemeCubit, ThemeMode>(
-                    builder: (context, state) {
-                      final themeCubit = context.read<ThemeCubit>();
-
-                      return ThemeModeSelector(
-                        currentThemeMode: state,
-                        onSelected: (themeMode) {
-                          if (themeMode != null) {
-                            themeCubit.updateTheme(themeMode);
-                          }
-                        },
-                      );
-                    },
-                  ),
-                ],
+              child: EhGalleryListView(
+                displayMode: .list,
+                pageInfo: state.galleryPageInfo,
               ),
             ),
           };
@@ -71,9 +33,5 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   }
 
   @override
-  void onEffect(BuildContext context, HomeEffect effect) {
-    if (effect is HomeShowTestMessage) {
-      showSnackBar(context, 'test message');
-    }
-  }
+  void onEffect(BuildContext context, HomeEffect effect) {}
 }

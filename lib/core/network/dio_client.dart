@@ -8,7 +8,7 @@ class DioClient {
 
   DioClient(this._dio) {
     _dio.options = BaseOptions(
-      baseUrl: NetworkConfig.baseUrl,
+      baseUrl: NetworkConfig.ehIndex,
       connectTimeout: NetworkConfig.connectTimeout,
       receiveTimeout: NetworkConfig.receiveTimeout,
     );

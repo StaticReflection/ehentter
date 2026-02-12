@@ -1,3 +1,5 @@
+import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
+import 'package:ehentter/domain/usecases/eh/get_gallery_page_info_use_case.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ehentter/core/bloc/base_bloc.dart';
@@ -7,20 +9,21 @@ part 'home_state.dart';
 part 'home_effect.dart';
 
 class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
-  HomeBloc() : super(HomeInitial()) {
+  final GetGalleryPageInfoUseCase _getGalleryPageInfoUseCase;
+
+  HomeBloc(this._getGalleryPageInfoUseCase) : super(HomeInitial()) {
     on<HomeInit>(_onInit);
-    on<HomeTest>(_onTest);
 
     add(HomeInit());
   }
 
   void _onInit(HomeInit event, Emitter<HomeState> emit) async {
     emit(HomeLoading());
-    await Future.delayed(Duration(seconds: 2));
-    emit(HomeLoaded());
-  }
-
-  void _onTest(HomeTest event, Emitter<HomeState> emit) {
-    emitEffect(HomeShowTestMessage());
+    try {
+      final pageInfo = await _getGalleryPageInfoUseCase();
+      emit(HomeLoaded(pageInfo));
+    } catch (e) {
+      emit(HomeLoadFailure(e.toString()));
+    }
   }
 }
