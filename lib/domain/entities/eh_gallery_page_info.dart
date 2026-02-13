@@ -12,4 +12,18 @@ class EhGalleryPageInfo {
     this.nextGid,
     required this.resultCount,
   });
+
+  EhGalleryPageInfo copyWith({
+    List<EhGallerySummary>? galleries,
+    int? prevGid,
+    int? nextGid,
+    int? resultCount,
+  }) {
+    return EhGalleryPageInfo(
+      galleries: galleries ?? this.galleries,
+      prevGid: prevGid ?? this.prevGid,
+      nextGid: nextGid ?? this.nextGid,
+      resultCount: resultCount ?? this.resultCount,
+    );
+  }
 }

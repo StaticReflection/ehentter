@@ -22,8 +22,9 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
             ),
             HomeLoaded() => Center(
               child: EhGalleryListView(
-                displayMode: .list,
+                displayMode: .grid,
                 pageInfo: state.galleryPageInfo,
+                onLoadMore: () => bloc.add(HomeLoadNextPage()),
               ),
             ),
           };
@@ -33,5 +34,9 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   }
 
   @override
-  void onEffect(BuildContext context, HomeEffect effect) {}
+  void onEffect(BuildContext context, HomeEffect effect) {
+    if (effect is HomeLoadMoreFailure) {
+      showSnackBar(context, effect.message);
+    }
+  }
 }

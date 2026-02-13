@@ -9,8 +9,19 @@ final class HomeLoading extends HomeState {}
 
 final class HomeLoaded extends HomeState {
   final EhGalleryPageInfo galleryPageInfo;
+  final bool isLoadingMore;
 
-  HomeLoaded(this.galleryPageInfo);
+  HomeLoaded({required this.galleryPageInfo, this.isLoadingMore = false});
+
+  HomeLoaded copyWith({
+    EhGalleryPageInfo? galleryPageInfo,
+    bool? isLoadingMore,
+  }) {
+    return HomeLoaded(
+      galleryPageInfo: galleryPageInfo ?? this.galleryPageInfo,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+    );
+  }
 }
 
 final class HomeLoadFailure extends HomeState {

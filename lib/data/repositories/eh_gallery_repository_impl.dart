@@ -8,7 +8,10 @@ class EhGalleryRepositoryImpl implements EhGalleryRepository {
   EhGalleryRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<EhGalleryPageInfo> getGalleryPageInfo(String? query) async {
-    return _remoteDataSource.getGalleryPageInfo(query);
+  Future<EhGalleryPageInfo> getGalleryPageInfo(
+    String? query, {
+    int? nextGid,
+  }) async {
+    return _remoteDataSource.getGalleryPageInfo(query, nextGid: nextGid);
   }
 }

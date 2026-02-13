@@ -6,7 +6,7 @@ class GetGalleryPageInfoUseCase {
 
   GetGalleryPageInfoUseCase(this._repository);
 
-  Future<EhGalleryPageInfo> call({String? query}) async {
-    return await _repository.getGalleryPageInfo(query);
+  Future<EhGalleryPageInfo> call({String? query, int? nextGid}) async {
+    return await _repository.getGalleryPageInfo(query, nextGid: nextGid);
   }
 }

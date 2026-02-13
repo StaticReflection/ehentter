@@ -29,12 +29,49 @@ class EhRatingStyleParser extends EhBaseParser<String, double> {
   }
 }
 
+/// 下一页按钮的地址转 [int] gid
+class EhNextUrlParser extends EhBaseParser<String, int?> {
+  @override
+  int? parser(String input) {
+    if (input.isEmpty) return null;
+
+    final m = RegExp(r'[?&]next=(\d+)').firstMatch(input);
+
+    final nextGid = m?.group(1);
+    if (nextGid == null) return null;
+
+    return int.tryParse(nextGid);
+  }
+}
+
+/// 下一页按钮的地址转 [int] gid
+class EhPrevUrlParser extends EhBaseParser<String, int?> {
+  @override
+  int? parser(String input) {
+    if (input.isEmpty) return null;
+
+    final m = RegExp(r'[?&]prev=(\d+)').firstMatch(input);
+
+    final prevGid = m?.group(1);
+    if (prevGid == null) return null;
+
+    return int.tryParse(prevGid);
+  }
+}
+
 /// 画廊列表页转 [EhGalleryPageInfo]
 class EhGalleryPageParser extends EhDomParser<Document, EhGalleryPageInfo> {
   final EhGalleryUrlParser _ehGalleryUrlParser;
   final EhRatingStyleParser _ehRatingStyleParser;
+  final EhNextUrlParser _ehNextUrlParser;
+  final EhPrevUrlParser _ehPrevUrlParser;
 
-  EhGalleryPageParser(this._ehGalleryUrlParser, this._ehRatingStyleParser);
+  EhGalleryPageParser(
+    this._ehGalleryUrlParser,
+    this._ehRatingStyleParser,
+    this._ehNextUrlParser,
+    this._ehPrevUrlParser,
+  );
 
   @override
   EhGalleryPageInfo parser(Document input) {
@@ -96,9 +133,28 @@ class EhGalleryPageParser extends EhDomParser<Document, EhGalleryPageInfo> {
       );
     }).toList();
 
+    int? nextGid;
+    if (input.querySelector('#dnext')?.localName == 'a') {
+      nextGid = guardElement(
+        input.body!,
+        '#dnext',
+        (el) => _ehNextUrlParser(getAttributes(el, 'href')),
+      );
+    }
+    int? prevGid;
+    if (input.querySelector('#dprev')?.localName == 'a') {
+      prevGid = guardElement(
+        input.body!,
+        '#dprev',
+        (el) => _ehPrevUrlParser(getAttributes(el, 'href')),
+      );
+    }
+
     return EhGalleryPageInfo(
       galleries: galleries,
       resultCount: galleries.length,
+      nextGid: nextGid,
+      prevGid: prevGid,
     );
   }
 }

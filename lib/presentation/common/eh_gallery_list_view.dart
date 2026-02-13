@@ -10,39 +10,72 @@ import 'package:waterfall_flow/waterfall_flow.dart';
 
 enum EhGalleryLayout { grid, list }
 
-class EhGalleryListView extends StatelessWidget {
+class EhGalleryListView extends StatefulWidget {
   const EhGalleryListView({
     required this.displayMode,
     required this.pageInfo,
+    required this.onLoadMore,
     super.key,
   });
 
   final EhGalleryLayout displayMode;
   final EhGalleryPageInfo pageInfo;
+  final VoidCallback onLoadMore;
+
+  @override
+  State<EhGalleryListView> createState() => _EhGalleryListViewState();
+}
+
+class _EhGalleryListViewState extends State<EhGalleryListView> {
+  late final ScrollController controller;
+
+  @override
+  void initState() {
+    controller = ScrollController();
+
+    controller.addListener(() {
+      final pos = controller.position;
+      final remaining = pos.maxScrollExtent - pos.pixels;
+
+      if (remaining < 500) {
+        widget.onLoadMore();
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return switch (displayMode) {
+    return switch (widget.displayMode) {
       EhGalleryLayout.grid => WaterfallFlow.builder(
+        controller: controller,
         padding: .all(8),
-        itemCount: pageInfo.galleries.length,
+        itemCount: widget.pageInfo.galleries.length,
         gridDelegate: SliverWaterfallFlowDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 300,
           mainAxisSpacing: 8,
           crossAxisSpacing: 8,
         ),
         itemBuilder: (context, index) {
-          final gallery = pageInfo.galleries[index];
+          final gallery = widget.pageInfo.galleries[index];
 
           return EhGalleryGridCard(gallery);
         },
       ),
       EhGalleryLayout.list => ListView.separated(
+        controller: controller,
         padding: .all(8),
-        itemCount: pageInfo.galleries.length,
+        itemCount: widget.pageInfo.galleries.length,
         separatorBuilder: (_, _) => SizedBox(height: 8),
         itemBuilder: (context, index) {
-          final gallery = pageInfo.galleries[index];
+          final gallery = widget.pageInfo.galleries[index];
 
           return SizedBox(height: 200, child: EhGalleryListCard(gallery));
         },

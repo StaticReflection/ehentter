@@ -4,7 +4,7 @@ import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:html/dom.dart';
 
 abstract class EhGalleryRemoteDataSource {
-  Future<EhGalleryPageInfo> getGalleryPageInfo(String? query);
+  Future<EhGalleryPageInfo> getGalleryPageInfo(String? query, {int? nextGid});
 }
 
 class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
@@ -15,10 +15,18 @@ class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
   EhGalleryRemoteDataSourceImpl(this._dioClient, this._ehGalleryPageParser);
 
   @override
-  Future<EhGalleryPageInfo> getGalleryPageInfo(String? query) async {
+  Future<EhGalleryPageInfo> getGalleryPageInfo(
+    String? query, {
+    int? nextGid,
+  }) async {
+    final Map<String, dynamic> queryParameters = {
+      'f_search': ?query,
+      'next': ?nextGid,
+    };
+
     final response = await _dioClient.dio.get(
       '',
-      queryParameters: {'f_search': query ?? ''},
+      queryParameters: queryParameters,
     );
 
     final document = Document.html(response.data);

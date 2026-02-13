@@ -13,6 +13,7 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
 
   HomeBloc(this._getGalleryPageInfoUseCase) : super(HomeInitial()) {
     on<HomeInit>(_onInit);
+    on<HomeLoadNextPage>(_onLoadNextPage);
 
     add(HomeInit());
   }
@@ -21,9 +22,35 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
     emit(HomeLoading());
     try {
       final pageInfo = await _getGalleryPageInfoUseCase();
-      emit(HomeLoaded(pageInfo));
+      emit(HomeLoaded(galleryPageInfo: pageInfo));
     } catch (e) {
       emit(HomeLoadFailure(e.toString()));
+    }
+  }
+
+  void _onLoadNextPage(HomeLoadNextPage event, Emitter<HomeState> emit) async {
+    final currentState = state;
+    if (currentState is HomeLoaded) {
+      currentState.copyWith(isLoadingMore: true);
+      try {
+        final newPageInfo = await _getGalleryPageInfoUseCase.call(
+          nextGid: currentState.galleryPageInfo.nextGid,
+        );
+
+        final updatedGalleries = [
+          ...currentState.galleryPageInfo.galleries,
+          ...newPageInfo.galleries,
+        ];
+
+        emit(
+          currentState.copyWith(
+            isLoadingMore: false,
+            galleryPageInfo: newPageInfo.copyWith(galleries: updatedGalleries),
+          ),
+        );
+      } catch (e) {
+        emitEffect(HomeLoadMoreFailure(e.toString()));
+      }
     }
   }
 }
