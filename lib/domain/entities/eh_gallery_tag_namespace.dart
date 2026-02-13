@@ -10,9 +10,13 @@ enum EhGalleryTagNamespaces {
   mixed,
   other,
   parody,
-  reclass;
+  reclass,
+  temp;
 
   static EhGalleryTagNamespaces fromString(String value) {
-    return EhGalleryTagNamespaces.values.firstWhere((e) => e.name == value);
+    return EhGalleryTagNamespaces.values.firstWhere(
+      (e) => e.name == value,
+      orElse: () => EhGalleryTagNamespaces.temp,
+    );
   }
 }
