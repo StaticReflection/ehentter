@@ -3,6 +3,7 @@ import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:ehentter/domain/entities/eh_gallery_summary.dart';
 import 'package:ehentter/domain/entities/eh_gallery_tag_group.dart';
 import 'package:ehentter/presentation/common/eh_gallery_category_card.dart';
+import 'package:ehentter/presentation/common/eh_network_image.dart';
 import 'package:ehentter/presentation/common/eh_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -98,11 +99,7 @@ class EhGalleryGridCard extends StatelessWidget {
           Container(
             color: context.theme.colorScheme.surfaceContainer,
             width: .infinity,
-            child: Image.network(
-              gallery.thumb,
-              fit: .contain,
-              width: .infinity,
-            ),
+            child: EhNetworkImage(imageUrl: gallery.thumb),
           ),
           Padding(
             padding: .all(4),
@@ -160,7 +157,7 @@ class EhGalleryListCard extends StatelessWidget {
             child: Container(
               color: context.theme.colorScheme.surfaceContainer,
               width: .infinity,
-              child: Image.network(gallery.thumb, width: 200, fit: .contain),
+              child: EhNetworkImage(imageUrl: gallery.thumb),
             ),
           ),
           Expanded(
