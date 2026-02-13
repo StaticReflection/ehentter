@@ -1,9 +1,13 @@
 part of 'injection_container.dart';
 
 Future<void> _initCoreDI() async {
+  final loggerService = LoggerService();
+  loggerService.init();
+  sl.registerSingleton<ILoggerService>(loggerService);
+
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerSingleton<SharedPreferences>(sharedPreferences);
-  
+
   sl.registerLazySingleton<Dio>(() => Dio());
   sl.registerLazySingleton<DioClient>(() => DioClient(sl()));
 
