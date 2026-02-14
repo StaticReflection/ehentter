@@ -10,7 +10,12 @@ class AppTheme {
   static ThemeData _baseTheme(Brightness brightness) {
     return ThemeData(
       brightness: brightness,
-      cardTheme: CardThemeData(clipBehavior: .antiAlias, margin: .zero),
+      cardTheme: CardThemeData(
+        clipBehavior: .antiAlias,
+        margin: .zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        elevation: 0,
+      ),
     );
   }
 }

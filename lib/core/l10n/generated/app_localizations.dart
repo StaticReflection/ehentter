@@ -103,6 +103,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ehentter'**
   String get app_title;
+
+  /// No description provided for @gallery_detail_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery Detail'**
+  String get gallery_detail_title;
 }
 
 class _AppLocalizationsDelegate

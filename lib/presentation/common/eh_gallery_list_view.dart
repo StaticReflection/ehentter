@@ -1,4 +1,5 @@
 import 'package:ehentter/core/extensions/build_context.dart';
+import 'package:ehentter/core/router/app_router.dart';
 import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:ehentter/domain/entities/eh_gallery_summary.dart';
 import 'package:ehentter/domain/entities/eh_gallery_tag_group.dart';
@@ -6,6 +7,7 @@ import 'package:ehentter/presentation/common/eh_gallery_category_card.dart';
 import 'package:ehentter/presentation/common/eh_network_image.dart';
 import 'package:ehentter/presentation/common/eh_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
@@ -93,50 +95,53 @@ class EhGalleryGridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        crossAxisAlignment: .start,
-        children: [
-          Container(
-            color: context.theme.colorScheme.surfaceContainer,
-            width: .infinity,
-            child: EhNetworkImage(imageUrl: gallery.thumb),
-          ),
-          Padding(
-            padding: .all(4),
-            child: Column(
-              spacing: 4,
-              crossAxisAlignment: .start,
-              children: [
-                Text(gallery.title, maxLines: 2, overflow: .ellipsis),
-                DefaultTextStyle(
-                  style: context.theme.textTheme.labelMedium ?? TextStyle(),
-                  child: Column(
-                    spacing: 4,
-                    crossAxisAlignment: .start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: .spaceBetween,
-                        children: [
-                          EhGalleryCategoryCard(gallery.category),
-                          Text('${gallery.filecount}P'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: .spaceBetween,
-                        children: [
-                          EhRatingBar(rating: gallery.rating),
-                          Text(
-                            DateFormat('MM-dd HH:mm').format(gallery.posted),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      child: InkWell(
+        onTap: () => context.push(AppRouter.galleryDetail, extra: gallery),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            Container(
+              color: context.theme.colorScheme.surfaceContainer,
+              width: .infinity,
+              child: EhNetworkImage(imageUrl: gallery.thumb),
             ),
-          ),
-        ],
+            Padding(
+              padding: .all(4),
+              child: Column(
+                spacing: 4,
+                crossAxisAlignment: .start,
+                children: [
+                  Text(gallery.title, maxLines: 2, overflow: .ellipsis),
+                  DefaultTextStyle(
+                    style: context.theme.textTheme.labelMedium ?? TextStyle(),
+                    child: Column(
+                      spacing: 4,
+                      crossAxisAlignment: .start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: .spaceBetween,
+                          children: [
+                            EhGalleryCategoryCard(gallery.category),
+                            Text('${gallery.filecount}P'),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: .spaceBetween,
+                          children: [
+                            EhRatingBar(rating: gallery.rating),
+                            Text(
+                              DateFormat('MM-dd HH:mm').format(gallery.posted),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -150,68 +155,72 @@ class EhGalleryListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Row(
-        children: [
-          AspectRatio(
-            aspectRatio: 3 / 4,
-            child: Container(
-              color: context.theme.colorScheme.surfaceContainer,
-              width: .infinity,
-              child: EhNetworkImage(imageUrl: gallery.thumb),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: .symmetric(vertical: 4, horizontal: 8),
-              child: Column(
-                crossAxisAlignment: .start,
-                children: [
-                  Stack(
-                    children: [
-                      Text('\n'),
-                      Text(gallery.title, maxLines: 2, overflow: .ellipsis),
-                    ],
-                  ),
-                  Expanded(
-                    child: DefaultTextStyle(
-                      style: context.theme.textTheme.labelMedium ?? TextStyle(),
-                      child: Column(
-                        spacing: 4,
-                        crossAxisAlignment: .start,
-                        children: [
-                          Text(
-                            gallery.uploader,
-                            maxLines: 1,
-                            overflow: .ellipsis,
-                          ),
-                          Expanded(child: _EhGalleryTagsList(gallery.tags)),
-                          Row(
-                            mainAxisAlignment: .spaceBetween,
-                            children: [
-                              EhGalleryCategoryCard(gallery.category),
-                              Text('${gallery.filecount}P'),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: .spaceBetween,
-                            children: [
-                              EhRatingBar(rating: gallery.rating),
-                              Text(
-                                DateFormat(
-                                  'yyyy-MM-dd HH:mm',
-                                ).format(gallery.posted),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+      child: InkWell(
+        onTap: () => context.push(AppRouter.galleryDetail, extra: gallery),
+        child: Row(
+          children: [
+            AspectRatio(
+              aspectRatio: 3 / 4,
+              child: Container(
+                color: context.theme.colorScheme.surfaceContainer,
+                width: .infinity,
+                child: EhNetworkImage(imageUrl: gallery.thumb),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Padding(
+                padding: .symmetric(vertical: 4, horizontal: 8),
+                child: Column(
+                  crossAxisAlignment: .start,
+                  children: [
+                    Stack(
+                      children: [
+                        Text('\n'),
+                        Text(gallery.title, maxLines: 2, overflow: .ellipsis),
+                      ],
+                    ),
+                    Expanded(
+                      child: DefaultTextStyle(
+                        style:
+                            context.theme.textTheme.labelMedium ?? TextStyle(),
+                        child: Column(
+                          spacing: 4,
+                          crossAxisAlignment: .start,
+                          children: [
+                            Text(
+                              gallery.uploader,
+                              maxLines: 1,
+                              overflow: .ellipsis,
+                            ),
+                            Expanded(child: _EhGalleryTagsList(gallery.tags)),
+                            Row(
+                              mainAxisAlignment: .spaceBetween,
+                              children: [
+                                EhGalleryCategoryCard(gallery.category),
+                                Text('${gallery.filecount}P'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: .spaceBetween,
+                              children: [
+                                EhRatingBar(rating: gallery.rating),
+                                Text(
+                                  DateFormat(
+                                    'yyyy-MM-dd HH:mm',
+                                  ).format(gallery.posted),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

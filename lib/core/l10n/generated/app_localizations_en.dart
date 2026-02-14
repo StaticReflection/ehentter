@@ -10,4 +10,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get app_title => 'Ehentter';
+
+  @override
+  String get gallery_detail_title => 'Gallery Detail';
 }

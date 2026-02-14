@@ -1,4 +1,6 @@
 import 'package:ehentter/data/sources/remote/eh_gallery_remote_data_source.dart';
+import 'package:ehentter/domain/entities/eh_gallery_detail.dart';
+import 'package:ehentter/domain/entities/eh_gallery_id.dart';
 import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:ehentter/domain/repositores/eh_gallery_repository.dart';
 
@@ -12,6 +14,11 @@ class EhGalleryRepositoryImpl implements EhGalleryRepository {
     String? query, {
     int? nextGid,
   }) async {
-    return _remoteDataSource.getGalleryPageInfo(query, nextGid: nextGid);
+    return await _remoteDataSource.getGalleryPageInfo(query, nextGid: nextGid);
+  }
+
+  @override
+  Future<EhGalleryDetail> getGalleryDetail(EhGalleryId id) async {
+    return await _remoteDataSource.getGalleryDetail(id);
   }
 }

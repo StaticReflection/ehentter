@@ -1,4 +1,5 @@
 {
-    "@@locale": "en",
-    "app_title": "Ehentter"
+  "@@locale": "en",
+  "app_title": "Ehentter",
+  "gallery_detail_title": "Gallery Detail"
 }

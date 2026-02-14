@@ -6,9 +6,10 @@ Future<void> _initEhDI() async {
   sl.registerLazySingleton(() => EhNextUrlParser());
   sl.registerLazySingleton(() => EhPrevUrlParser());
   sl.registerLazySingleton(() => EhGalleryPageParser(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton(() => EhGalleryDetailParser(sl()));
 
   sl.registerLazySingleton<EhGalleryRemoteDataSource>(
-    () => EhGalleryRemoteDataSourceImpl(sl(), sl()),
+    () => EhGalleryRemoteDataSourceImpl(sl(), sl(), sl()),
   );
 
   sl.registerLazySingleton<EhGalleryRepository>(
@@ -16,4 +17,5 @@ Future<void> _initEhDI() async {
   );
 
   sl.registerLazySingleton(() => GetGalleryPageInfoUseCase(sl()));
+  sl.registerLazySingleton(() => GetGalleryDetailUseCase(sl()));
 }

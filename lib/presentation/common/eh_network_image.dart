@@ -7,7 +7,10 @@ class EhNetworkImage extends StatelessWidget {
     this.width,
     this.height,
     this.fit = BoxFit.contain,
-    this.aspectRatio = 3 / 4,
+    this.placeholder = const Center(
+      child: Padding(padding: .all(16), child: CircularProgressIndicator()),
+    ),
+    this.imageBuilder,
     super.key,
   });
 
@@ -15,7 +18,8 @@ class EhNetworkImage extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
-  final double aspectRatio;
+  final Widget placeholder;
+  final ImageWidgetBuilder? imageBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +28,10 @@ class EhNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
-      placeholder: (context, url) => AspectRatio(
-        aspectRatio: aspectRatio,
-        child: const Center(child: CircularProgressIndicator()),
-      ),
-      errorWidget: (context, url, error) => AspectRatio(
-        aspectRatio: aspectRatio,
+      imageBuilder: imageBuilder,
+      placeholder: (context, url) => placeholder,
+      errorWidget: (context, url, error) => const Padding(
+        padding: .all(16),
         child: Icon(Icons.broken_image_outlined),
       ),
     );
