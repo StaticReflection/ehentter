@@ -11,6 +11,7 @@ class DioClient {
       baseUrl: NetworkConfig.ehIndex,
       connectTimeout: NetworkConfig.connectTimeout,
       receiveTimeout: NetworkConfig.receiveTimeout,
+      headers: {'Cookie': 'nw=1;'},
     );
   }
 }
