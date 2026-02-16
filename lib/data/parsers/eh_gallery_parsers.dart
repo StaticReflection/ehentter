@@ -206,7 +206,7 @@ class EhGalleryDetailParser
       ),
       filecount: guardElement(
         input.body!,
-        '#gdd tr:nth-child(6) .gdt2',
+        '#gdd tr:nth-child(5) .gdt2',
         (pages) => pages.text.split(' ').first,
       ),
       rating: guardElement(
