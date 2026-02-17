@@ -104,11 +104,35 @@ abstract class AppLocalizations {
   /// **'Ehentter'**
   String get app_title;
 
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
   /// No description provided for @gallery_detail_title.
   ///
   /// In en, this message translates to:
   /// **'Gallery Detail'**
   String get gallery_detail_title;
+
+  /// No description provided for @gallery_reader_load_more_fail_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Load more fail'**
+  String get gallery_reader_load_more_fail_message;
+
+  /// No description provided for @read.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get read;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
 }
 
 class _AppLocalizationsDelegate

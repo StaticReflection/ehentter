@@ -5,8 +5,10 @@ import 'package:ehentter/data/services/logger_service.dart';
 import 'package:ehentter/data/sources/remote/eh_gallery_remote_data_source.dart';
 import 'package:ehentter/domain/repositores/eh_gallery_repository.dart';
 import 'package:ehentter/domain/usecases/eh/get_gallery_detail_use_case.dart';
+import 'package:ehentter/domain/usecases/eh/get_gallery_image_use_case.dart';
 import 'package:ehentter/domain/usecases/eh/get_gallery_page_info_use_case.dart';
 import 'package:ehentter/presentation/gallery_detail/bloc/gallery_detail_bloc.dart';
+import 'package:ehentter/presentation/gallery_reader/bloc/gallery_reader_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
@@ -34,4 +36,5 @@ Future<void> initDependencies() async {
 
   sl.registerFactory(() => HomeBloc(sl()));
   sl.registerFactory(() => GalleryDetailBloc(sl()));
+  sl.registerFactory(() => GalleryReaderBloc(sl(), sl()));
 }

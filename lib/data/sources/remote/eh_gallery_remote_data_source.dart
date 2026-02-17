@@ -8,7 +8,12 @@ import 'package:html/dom.dart';
 abstract class EhGalleryRemoteDataSource {
   Future<EhGalleryPageInfo> getGalleryPageInfo(String? query, {int? nextGid});
 
-  Future<EhGalleryDetailModel> getGalleryDetail(EhGalleryId id);
+  Future<EhGalleryDetailModel> getGalleryDetail(
+    EhGalleryId id, {
+    required int pageIndex,
+  });
+
+  Future<String> getGalleryImage(String pageUrl);
 }
 
 class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
@@ -16,11 +21,13 @@ class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
 
   final EhGalleryPageParser _ehGalleryPageParser;
   final EhGalleryDetailParser _ehGalleryDetailParser;
+  final EhGalleryImageParser _ehGalleryImageParser;
 
   EhGalleryRemoteDataSourceImpl(
     this._dioClient,
     this._ehGalleryPageParser,
     this._ehGalleryDetailParser,
+    this._ehGalleryImageParser,
   );
 
   @override
@@ -44,9 +51,21 @@ class EhGalleryRemoteDataSourceImpl implements EhGalleryRemoteDataSource {
   }
 
   @override
-  Future<EhGalleryDetailModel> getGalleryDetail(EhGalleryId id) async {
-    final response = await _dioClient.dio.get('/g/${id.gid}/${id.token}');
+  Future<EhGalleryDetailModel> getGalleryDetail(
+    EhGalleryId id, {
+    required int pageIndex,
+  }) async {
+    final response = await _dioClient.dio.get(
+      '/g/${id.gid}/${id.token}/?p=$pageIndex',
+    );
 
     return _ehGalleryDetailParser(Document.html(response.data));
+  }
+
+  @override
+  Future<String> getGalleryImage(String pageUrl) async {
+    final response = await _dioClient.dio.get(pageUrl);
+
+    return _ehGalleryImageParser(Document.html(response.data));
   }
 }

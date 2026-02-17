@@ -15,5 +15,5 @@ class EhGalleryDetailModel extends EhGalleryDetail {
 
     // detail
     required super.thumbnailSprites,
-  });
+  }) : super(thumbnailPageCount: (filecount / 20).ceil());
 }

@@ -9,7 +9,7 @@ class EhGallerySummary {
   final String thumb; // 缩略图地址
   final String uploader; // 上传者名称
   final DateTime posted; // 上传时间
-  final String filecount; // 文件数
+  final int filecount; // 文件数
   final double rating; // 评分(1-5)
   final List<EhGalleryTagGroup> tags; // 标签
 

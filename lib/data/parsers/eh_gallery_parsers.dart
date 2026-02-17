@@ -122,7 +122,7 @@ class EhGalleryPageParser extends EhDomParser<Document, EhGalleryPageInfo> {
 
         filecount: guardElement(tr, '.gl4c > div', (el) {
           final divs = tr.querySelectorAll('.gl4c > div');
-          return divs.last.text.split(' ').first;
+          return int.parse(divs.last.text.split(' ').first);
         }),
 
         tags: guardElement(tr, '.glname', (el) {
@@ -207,7 +207,7 @@ class EhGalleryDetailParser
       filecount: guardElement(
         input.body!,
         '#gdd tr:nth-child(5) .gdt2',
-        (pages) => pages.text.split(' ').first,
+        (pages) => int.parse(pages.text.split(' ').first),
       ),
       rating: guardElement(
         input.body!,
@@ -277,6 +277,18 @@ class EhGalleryDetailParser
 
         return thumbnailSprites;
       }),
+    );
+  }
+}
+
+/// 画廊页转 [String] 图片地址
+class EhGalleryImageParser extends EhDomParser<Document, String> {
+  @override
+  String parser(Document input) {
+    return guardElement(
+      input.body!,
+      '#img',
+      (img) => getAttributes(img, 'src'),
     );
   }
 }

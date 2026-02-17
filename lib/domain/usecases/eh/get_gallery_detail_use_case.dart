@@ -7,7 +7,7 @@ class GetGalleryDetailUseCase {
 
   GetGalleryDetailUseCase(this._repository);
 
-  Future<EhGalleryDetail> call(EhGalleryId id) {
-    return _repository.getGalleryDetail(id);
+  Future<EhGalleryDetail> call(EhGalleryId id, {int pageIndex = 0}) {
+    return _repository.getGalleryDetail(id, pageIndex: pageIndex);
   }
 }

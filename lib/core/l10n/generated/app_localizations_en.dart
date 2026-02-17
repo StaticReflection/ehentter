@@ -12,5 +12,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_title => 'Ehentter';
 
   @override
+  String get back => 'Back';
+
+  @override
   String get gallery_detail_title => 'Gallery Detail';
+
+  @override
+  String get gallery_reader_load_more_fail_message => 'Load more fail';
+
+  @override
+  String get read => 'Read';
+
+  @override
+  String get retry => 'Retry';
 }

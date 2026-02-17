@@ -8,3 +8,5 @@ final class GalleryDetailInit extends GalleryDetailEvent {
 
   GalleryDetailInit(this.gallerySummary);
 }
+
+final class GalleryDetailReadPressed extends GalleryDetailEvent {}

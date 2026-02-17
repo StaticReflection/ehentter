@@ -18,7 +18,15 @@ class EhGalleryRepositoryImpl implements EhGalleryRepository {
   }
 
   @override
-  Future<EhGalleryDetail> getGalleryDetail(EhGalleryId id) async {
-    return await _remoteDataSource.getGalleryDetail(id);
+  Future<EhGalleryDetail> getGalleryDetail(
+    EhGalleryId id, {
+    int pageIndex = 0,
+  }) async {
+    return await _remoteDataSource.getGalleryDetail(id, pageIndex: pageIndex);
+  }
+
+  @override
+  Future<String> getGalleryImage(String pageUrl) async {
+    return await _remoteDataSource.getGalleryImage(pageUrl);
   }
 }

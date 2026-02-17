@@ -12,5 +12,17 @@ class AppLocalizationsZh extends AppLocalizations {
   String get app_title => 'Ehentter';
 
   @override
+  String get back => '返回';
+
+  @override
   String get gallery_detail_title => '画廊详情';
+
+  @override
+  String get gallery_reader_load_more_fail_message => '加载更多失败';
+
+  @override
+  String get read => '阅读';
+
+  @override
+  String get retry => '重试';
 }
