@@ -7,9 +7,6 @@ class EhNetworkImage extends StatelessWidget {
     this.width,
     this.height,
     this.fit = BoxFit.contain,
-    this.placeholder = const Center(
-      child: Padding(padding: .all(16), child: CircularProgressIndicator()),
-    ),
     this.imageBuilder,
     super.key,
   });
@@ -18,7 +15,6 @@ class EhNetworkImage extends StatelessWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
-  final Widget placeholder;
   final ImageWidgetBuilder? imageBuilder;
 
   @override
@@ -29,7 +25,12 @@ class EhNetworkImage extends StatelessWidget {
       height: height,
       fit: fit,
       imageBuilder: imageBuilder,
-      placeholder: (context, url) => placeholder,
+      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+        child: Padding(
+          padding: .all(16),
+          child: CircularProgressIndicator(value: downloadProgress.progress),
+        ),
+      ),
       errorWidget: (context, url, error) => const Padding(
         padding: .all(16),
         child: Icon(Icons.broken_image_outlined),
