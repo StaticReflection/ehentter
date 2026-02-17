@@ -14,7 +14,7 @@ abstract class EhBaseParser<I, T> {
       return parser(input);
     } catch (e, stackTrace) {
       if (e is EhParseException) {
-        _logger.e('解析器错误: ${e.parser}', error: e, stackTrace: stackTrace);
+        _logger.e('Parser error: ${e.parser}', error: e);
         rethrow;
       }
 
@@ -25,11 +25,7 @@ abstract class EhBaseParser<I, T> {
         rawData: _formatRawData(input),
       );
 
-      _logger.e(
-        '未预料的解析错误: $runtimeType',
-        error: exception,
-        stackTrace: stackTrace,
-      );
+      _logger.e('Unexpected parsing error: $runtimeType', error: exception);
       throw exception;
     }
   }
