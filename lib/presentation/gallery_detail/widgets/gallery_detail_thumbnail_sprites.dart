@@ -1,6 +1,6 @@
 import 'package:ehentter/core/extensions/build_context.dart';
 import 'package:ehentter/domain/entities/eh_thumbnail_sprite.dart';
-import 'package:ehentter/presentation/common/eh_network_image.dart';
+import 'package:ehentter/presentation/common/eh/eh_network_image.dart';
 import 'package:flutter/material.dart';
 
 class GalleryDetailThumbnailSprites extends StatelessWidget {

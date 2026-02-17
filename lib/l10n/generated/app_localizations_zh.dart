@@ -21,6 +21,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gallery_reader_load_more_fail_message => '加载更多失败';
 
   @override
+  String get no_more_data_message => '没有更多了';
+
+  @override
   String get read => '阅读';
 
   @override

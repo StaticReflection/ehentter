@@ -21,6 +21,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gallery_reader_load_more_fail_message => 'Load more fail';
 
   @override
+  String get no_more_data_message => 'No more data';
+
+  @override
   String get read => 'Read';
 
   @override

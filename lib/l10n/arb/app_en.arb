@@ -4,6 +4,7 @@
   "back": "Back",
   "gallery_detail_title": "Gallery Detail",
   "gallery_reader_load_more_fail_message": "Load more fail",
+  "no_more_data_message": "No more data",
   "read": "Read",
   "retry": "Retry"
 }

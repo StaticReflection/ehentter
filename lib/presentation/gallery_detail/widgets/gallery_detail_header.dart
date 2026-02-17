@@ -1,8 +1,8 @@
 import 'package:ehentter/core/extensions/build_context.dart';
 import 'package:ehentter/domain/entities/eh_gallery_summary.dart';
-import 'package:ehentter/presentation/common/eh_gallery_category_card.dart';
-import 'package:ehentter/presentation/common/eh_network_image.dart';
-import 'package:ehentter/presentation/common/eh_rating_bar.dart';
+import 'package:ehentter/presentation/common/eh/eh_gallery_category_card.dart';
+import 'package:ehentter/presentation/common/eh/eh_network_image.dart';
+import 'package:ehentter/presentation/common/eh/eh_rating_bar.dart';
 import 'package:flutter/material.dart';
 
 class GalleryDetailHeader extends StatelessWidget {

@@ -4,6 +4,7 @@
   "back": "返回",
   "gallery_detail_title": "画廊详情",
   "gallery_reader_load_more_fail_message": "加载更多失败",
+  "no_more_data_message": "没有更多了",
   "read": "阅读",
   "retry": "重试"
 }

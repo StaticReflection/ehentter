@@ -63,6 +63,7 @@ class GalleryReaderView
                       bloc.add(GalleryReaderToggleActionsBar()),
                   child: GalleryReaderImageList(
                     images: state.images,
+                    hasReachedMax: state.hasReachedMax,
                     onLoadMore: () => bloc.add(GalleryReaderLoadMore()),
                   ),
                 ),

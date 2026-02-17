@@ -38,23 +38,26 @@ class GalleryReaderBloc
     Emitter<GalleryReaderState> emit,
   ) async {
     emit(GalleryReaderLoading());
+
     try {
-      final galleryDetail = await _getGalleryDetailUseCase(
+      final detail = await _getGalleryDetailUseCase(
         event.galleryId,
         pageIndex: 0,
       );
 
-      final imageFutures = galleryDetail.thumbnailSprites.map(
+      final imageFutures = detail.thumbnailSprites.map(
         (thumb) => _getGalleryImageUseCase(thumb.url),
       );
-      final List<String> images = await Future.wait(imageFutures);
+
+      final images = await Future.wait(imageFutures);
 
       emit(
         GalleryReaderLoaded(
           images: images,
-          galleryDetail: galleryDetail,
-          hasReachedMax: galleryDetail.thumbnailPageCount <= 1,
-          nextPageIndex: 1,
+          galleryDetail: detail,
+          currentPageIndex: 0,
+          hasReachedMax: detail.thumbnailPageCount <= 1,
+          isFetchingMore: false,
         ),
       );
     } catch (e) {
@@ -67,33 +70,37 @@ class GalleryReaderBloc
     Emitter<GalleryReaderState> emit,
   ) async {
     final currentState = state;
+
     if (currentState is! GalleryReaderLoaded ||
         currentState.isFetchingMore ||
         currentState.hasReachedMax) {
       return;
     }
 
+    emit(currentState.copyWith(isFetchingMore: true));
+
     try {
-      emit(currentState.copyWith(isFetchingMore: true));
+      final nextPageIndex = currentState.currentPageIndex + 1;
 
       final nextDetail = await _getGalleryDetailUseCase(
         currentState.galleryDetail.id,
-        pageIndex: currentState.nextPageIndex,
+        pageIndex: nextPageIndex,
       );
 
       final newImageFutures = nextDetail.thumbnailSprites.map(
         (thumb) => _getGalleryImageUseCase(thumb.url),
       );
-      final List<String> newImages = await Future.wait(newImageFutures);
+
+      final newImages = await Future.wait(newImageFutures);
+      final totalPageCount = nextDetail.thumbnailPageCount;
+      final reachedMax = nextPageIndex >= totalPageCount - 1;
 
       emit(
         currentState.copyWith(
-          images: currentState.images + newImages,
-          nextPageIndex: currentState.nextPageIndex + 1,
+          images: [...currentState.images, ...newImages],
+          currentPageIndex: nextPageIndex,
+          hasReachedMax: reachedMax,
           isFetchingMore: false,
-          hasReachedMax:
-              currentState.nextPageIndex + 1 >=
-              currentState.galleryDetail.thumbnailPageCount,
         ),
       );
     } catch (e) {

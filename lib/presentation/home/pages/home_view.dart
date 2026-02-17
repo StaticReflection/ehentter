@@ -1,4 +1,4 @@
-import 'package:ehentter/presentation/common/eh_gallery_list_view.dart';
+import 'package:ehentter/presentation/common/eht/eht_gallery_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ehentter/core/extensions/build_context.dart';
@@ -21,8 +21,8 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
               child: SelectableText(state.errorMessage),
             ),
             HomeLoaded() => Center(
-              child: EhGalleryListView(
-                displayMode: .grid,
+              child: EhtGalleryView(
+                displayMode: .list,
                 pageInfo: state.galleryPageInfo,
                 onLoadMore: () => bloc.add(HomeLoadNextPage()),
               ),

@@ -7,39 +7,38 @@ final class GalleryReaderInitial extends GalleryReaderState {}
 
 final class GalleryReaderLoading extends GalleryReaderState {}
 
-final class GalleryReaderLoaded extends GalleryReaderState {
+class GalleryReaderLoaded extends GalleryReaderState {
   final List<String> images;
   final EhGalleryDetail galleryDetail;
-  final bool showActionsBar;
-
-  final int nextPageIndex;
-  final bool isFetchingMore;
+  final int currentPageIndex;
   final bool hasReachedMax;
+  final bool isFetchingMore;
+  final bool showActionsBar;
 
   GalleryReaderLoaded({
     required this.images,
     required this.galleryDetail,
-    this.showActionsBar = false,
-    this.nextPageIndex = 1,
+    required this.currentPageIndex,
+    required this.hasReachedMax,
     this.isFetchingMore = false,
-    this.hasReachedMax = false,
+    this.showActionsBar = false,
   });
 
   GalleryReaderLoaded copyWith({
     List<String>? images,
     EhGalleryDetail? galleryDetail,
-    bool? showActionsBar,
-    int? nextPageIndex,
-    bool? isFetchingMore,
+    int? currentPageIndex,
     bool? hasReachedMax,
+    bool? isFetchingMore,
+    bool? showActionsBar,
   }) {
     return GalleryReaderLoaded(
       images: images ?? this.images,
       galleryDetail: galleryDetail ?? this.galleryDetail,
-      showActionsBar: showActionsBar ?? this.showActionsBar,
-      nextPageIndex: nextPageIndex ?? this.nextPageIndex,
-      isFetchingMore: isFetchingMore ?? this.isFetchingMore,
+      currentPageIndex: currentPageIndex ?? this.currentPageIndex,
       hasReachedMax: hasReachedMax ?? this.hasReachedMax,
+      isFetchingMore: isFetchingMore ?? this.isFetchingMore,
+      showActionsBar: showActionsBar ?? this.showActionsBar,
     );
   }
 }

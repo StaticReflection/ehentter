@@ -2,7 +2,7 @@ import 'package:ehentter/core/bloc/app_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ehentter/core/di/injection_container.dart';
-import 'package:ehentter/core/l10n/generated/app_localizations.dart';
+import 'package:ehentter/l10n/generated/app_localizations.dart';
 import 'package:ehentter/presentation/common/logic/locale/locale_cubit.dart';
 import 'package:ehentter/core/router/app_router.dart';
 import 'package:ehentter/presentation/common/base/app_theme.dart';

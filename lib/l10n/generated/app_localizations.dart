@@ -122,6 +122,12 @@ abstract class AppLocalizations {
   /// **'Load more fail'**
   String get gallery_reader_load_more_fail_message;
 
+  /// No description provided for @no_more_data_message.
+  ///
+  /// In en, this message translates to:
+  /// **'No more data'**
+  String get no_more_data_message;
+
   /// No description provided for @read.
   ///
   /// In en, this message translates to:
