@@ -16,6 +16,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         elevation: 0,
       ),
+      appBarTheme: AppBarThemeData(actionsPadding: .only(right: 16)),
     );
   }
 }

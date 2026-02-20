@@ -20,6 +20,7 @@ class _BaseCategoryCard extends StatelessWidget {
             shadows: [
               Shadow(offset: Offset(0, 0), blurRadius: 4, color: Colors.black),
             ],
+            color: Colors.white,
           ),
         ),
       ),

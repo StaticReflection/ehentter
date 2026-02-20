@@ -2,9 +2,13 @@
   "@@locale": "zh",
   "app_title": "Ehentter",
   "back": "返回",
+  "clear": "清空",
   "gallery_detail_title": "画廊详情",
   "gallery_reader_load_more_fail_message": "加载更多失败",
+  "gallery_search_textfield_hint": "搜索标题或标签",
+  "gallery_search_title": "搜索 E-Hentai",
   "no_more_data_message": "没有更多了",
   "read": "阅读",
-  "retry": "重试"
+  "retry": "重试",
+  "search": "搜索"
 }

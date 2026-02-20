@@ -2,9 +2,13 @@
   "@@locale": "en",
   "app_title": "Ehentter",
   "back": "Back",
+  "clear": "Clear",
   "gallery_detail_title": "Gallery Detail",
   "gallery_reader_load_more_fail_message": "Load more fail",
+  "gallery_search_textfield_hint": "Search by title or tags",
+  "gallery_search_title": "Search E-Hentai",
   "no_more_data_message": "No more data",
   "read": "Read",
-  "retry": "Retry"
+  "retry": "Retry",
+  "search": "Search"
 }

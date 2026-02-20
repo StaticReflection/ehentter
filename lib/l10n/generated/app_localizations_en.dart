@@ -15,10 +15,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
+  String get clear => 'Clear';
+
+  @override
   String get gallery_detail_title => 'Gallery Detail';
 
   @override
   String get gallery_reader_load_more_fail_message => 'Load more fail';
+
+  @override
+  String get gallery_search_textfield_hint => 'Search by title or tags';
+
+  @override
+  String get gallery_search_title => 'Search E-Hentai';
 
   @override
   String get no_more_data_message => 'No more data';
@@ -28,4 +37,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get retry => 'Retry';
+
+  @override
+  String get search => 'Search';
 }

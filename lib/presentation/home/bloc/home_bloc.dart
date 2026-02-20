@@ -14,6 +14,7 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
   HomeBloc(this._getGalleryPageInfoUseCase) : super(HomeInitial()) {
     on<HomeInit>(_onInit);
     on<HomeLoadNextPage>(_onLoadNextPage);
+    on<HomeSearchPressed>(_onSearchPressed);
 
     add(HomeInit());
   }
@@ -30,8 +31,8 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
 
   void _onLoadNextPage(HomeLoadNextPage event, Emitter<HomeState> emit) async {
     final currentState = state;
-    if (currentState is HomeLoaded) {
-      currentState.copyWith(isLoadingMore: true);
+    if (currentState is HomeLoaded && !currentState.isLoadingMore) {
+      emit(currentState.copyWith(isLoadingMore: true));
       try {
         final newPageInfo = await _getGalleryPageInfoUseCase.call(
           nextGid: currentState.galleryPageInfo.nextGid,
@@ -52,5 +53,9 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState, HomeEffect> {
         emitEffect(HomeLoadMoreFailure(e.toString()));
       }
     }
+  }
+
+  void _onSearchPressed(HomeSearchPressed event, Emitter<HomeState> emit) {
+    emitEffect(HomeNavigateToSearch());
   }
 }

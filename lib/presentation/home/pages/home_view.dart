@@ -1,9 +1,11 @@
+import 'package:ehentter/core/router/app_router.dart';
 import 'package:ehentter/presentation/common/eht/eht_gallery_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ehentter/core/extensions/build_context.dart';
 import 'package:ehentter/presentation/common/base/base_widget.dart';
 import 'package:ehentter/presentation/home/bloc/home_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   const HomeView({super.key});
@@ -11,7 +13,15 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   @override
   Widget buildWidget(BuildContext context, HomeBloc bloc) {
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.app_title)),
+      appBar: AppBar(
+        title: Text(context.l10n.app_title),
+        actions: [
+          IconButton(
+            onPressed: () => bloc.add(HomeSearchPressed()),
+            icon: Icon(Icons.search),
+          ),
+        ],
+      ),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return switch (state) {
@@ -37,6 +47,9 @@ class HomeView extends BaseWidget<HomeBloc, HomeEffect> {
   void onEffect(BuildContext context, HomeEffect effect) {
     if (effect is HomeLoadMoreFailure) {
       showSnackBar(context, effect.message);
+    }
+    if (effect is HomeNavigateToSearch) {
+      context.push(AppRouter.gallerySearch);
     }
   }
 }

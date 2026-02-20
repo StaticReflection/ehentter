@@ -7,3 +7,5 @@ final class HomeLoadMoreFailure extends HomeEffect {
 
   HomeLoadMoreFailure(this.message);
 }
+
+class HomeNavigateToSearch extends HomeEffect {}

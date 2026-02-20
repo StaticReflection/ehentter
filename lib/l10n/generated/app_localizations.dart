@@ -110,6 +110,12 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get back;
 
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
   /// No description provided for @gallery_detail_title.
   ///
   /// In en, this message translates to:
@@ -121,6 +127,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more fail'**
   String get gallery_reader_load_more_fail_message;
+
+  /// No description provided for @gallery_search_textfield_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by title or tags'**
+  String get gallery_search_textfield_hint;
+
+  /// No description provided for @gallery_search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Search E-Hentai'**
+  String get gallery_search_title;
 
   /// No description provided for @no_more_data_message.
   ///
@@ -139,6 +157,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get retry;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
 }
 
 class _AppLocalizationsDelegate

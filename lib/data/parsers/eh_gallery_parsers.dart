@@ -143,9 +143,23 @@ class EhGalleryPageParser extends EhBaseParser<Document, EhGalleryPageInfo>
       );
     }
 
+    int resultCount;
+    resultCount =
+        querySelector<int?>(input.body!, 'div.searchtext', (searchtext) {
+          final pattern = RegExp(r'(\d[\d,]*)\s+results');
+          final match = pattern.firstMatch(searchtext.text);
+
+          if (match != null) {
+            return int.parse(match.group(1)!.replaceAll(',', ''));
+          }
+
+          return 0;
+        }, required: false) ??
+        0;
+
     return EhGalleryPageInfo(
       galleries: galleries,
-      resultCount: galleries.length,
+      resultCount: resultCount,
       nextGid: nextGid,
       prevGid: prevGid,
     );

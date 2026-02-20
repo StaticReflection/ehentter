@@ -66,8 +66,6 @@ class EhtGalleryView extends StatelessWidget {
   }
 }
 
-// --- Card Components 保持不变 ---
-
 class EhtGalleryGridCard extends StatelessWidget {
   const EhtGalleryGridCard(this.gallery, {super.key});
 
@@ -76,7 +74,7 @@ class EhtGalleryGridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.antiAlias, // 剪裁边缘
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () => context.push(AppRouter.galleryDetail, extra: gallery),
         child: Column(
