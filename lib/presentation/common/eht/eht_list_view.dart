@@ -11,6 +11,7 @@ class EhtListView extends StatefulWidget {
     this.onLoadMore,
     this.onRefresh,
     this.padding,
+    this.physics = const AlwaysScrollableScrollPhysics(),
     super.key,
   });
 
@@ -22,6 +23,7 @@ class EhtListView extends StatefulWidget {
   final RefreshCallback? onRefresh;
   final VoidCallback? onLoadMore;
   final EdgeInsetsGeometry? padding;
+  final ScrollPhysics physics;
 
   @override
   State<EhtListView> createState() => _EhtListViewState();
@@ -59,7 +61,7 @@ class _EhtListViewState extends State<EhtListView> {
       controller: _scrollController,
       padding: widget.padding,
       shrinkWrap: widget.shrinkWrap,
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: widget.physics,
       itemCount: widget.itemCount + 1,
       itemBuilder: (context, index) {
         if (index == widget.itemCount) return _buildFooter(context);

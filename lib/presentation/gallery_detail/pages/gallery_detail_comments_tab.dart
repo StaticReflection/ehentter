@@ -14,6 +14,7 @@ class GalleryDetailCommentsTab extends StatelessWidget {
     return EhtListView(
       shrinkWrap: true,
       itemCount: comments.length,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         final comment = comments[index];
         return Card(
