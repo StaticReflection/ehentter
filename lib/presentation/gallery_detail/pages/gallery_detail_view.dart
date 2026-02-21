@@ -2,10 +2,9 @@ import 'package:ehentter/core/extensions/build_context.dart';
 import 'package:ehentter/core/router/app_router.dart';
 import 'package:ehentter/presentation/common/base/base_widget.dart';
 import 'package:ehentter/presentation/gallery_detail/bloc/gallery_detail_bloc.dart';
-import 'package:ehentter/presentation/gallery_detail/widgets/gallery_detail_actions_bar.dart';
+import 'package:ehentter/presentation/gallery_detail/pages/gallery_detail_comments_tab.dart';
 import 'package:ehentter/presentation/gallery_detail/widgets/gallery_detail_header.dart';
-import 'package:ehentter/presentation/gallery_detail/widgets/gallery_detail_tag_list.dart';
-import 'package:ehentter/presentation/gallery_detail/widgets/gallery_detail_thumbnail_sprites.dart';
+import 'package:ehentter/presentation/gallery_detail/pages/gallery_detail_overview_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,38 +23,57 @@ class GalleryDetailView
             GalleryDetailInitial() => const Center(
               child: CircularProgressIndicator(),
             ),
-            GalleryDetailStateWithSummary(:final summary) => Builder(
-              builder: (context) {
-                final double displayRating = state is GalleryDetailLoaded
-                    ? state.detail.rating
-                    : summary.rating;
-
-                return SingleChildScrollView(
+            GalleryDetailStateWithSummary(:final summary) =>
+              DefaultTabController(
+                length: 2,
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.all(8),
                   child: Column(
-                    crossAxisAlignment: .start,
-                    spacing: 8,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       GalleryDetailHeader(
                         summary: summary,
-                        displayRating: displayRating,
+                        displayRating: state is GalleryDetailLoaded
+                            ? state.detail.rating
+                            : summary.rating,
                       ),
+                      const SizedBox(height: 8),
                       const Divider(height: 1),
                       if (state is GalleryDetailLoaded) ...[
-                        GalleryDetailActionsBar(
-                          onTapRead: () => bloc.add(GalleryDetailReadPressed()),
+                        TabBar(
+                          tabs: [
+                            Tab(text: context.l10n.overview),
+                            Tab(text: context.l10n.comment),
+                          ],
                         ),
-                        const Divider(height: 1),
-                        GalleryDetailTagList(tagGroups: state.detail.tags),
-                        const Divider(height: 1),
-                        GalleryDetailThumbnailSprites(
-                          sprites: state.detail.thumbnailSprites,
-                          onTap: (index) {},
+                        const SizedBox(height: 8),
+                        Builder(
+                          builder: (context) {
+                            final tabController = DefaultTabController.of(
+                              context,
+                            );
+                            return ListenableBuilder(
+                              listenable: tabController,
+                              builder: (context, _) {
+                                return switch (tabController.index) {
+                                  0 => GalleryDetailOverviewTab(
+                                    galleryDetail: state.detail,
+                                    onTapRead: () =>
+                                        bloc.add(GalleryDetailReadPressed()),
+                                  ),
+                                  1 => GalleryDetailCommentsTab(
+                                    state.detail.comments,
+                                  ),
+                                  _ => const SizedBox.shrink(),
+                                };
+                              },
+                            );
+                          },
                         ),
                       ] else if (state is GalleryDetailLoading) ...[
                         const Center(
                           child: Padding(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(16),
                             child: CircularProgressIndicator(),
                           ),
                         ),
@@ -64,9 +82,8 @@ class GalleryDetailView
                       ],
                     ],
                   ),
-                );
-              },
-            ),
+                ),
+              ),
           },
         );
       },

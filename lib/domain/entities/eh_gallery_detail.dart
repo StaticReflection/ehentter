@@ -1,9 +1,11 @@
+import 'package:ehentter/domain/entities/eh_gallery_comment.dart';
 import 'package:ehentter/domain/entities/eh_gallery_summary.dart';
 import 'package:ehentter/domain/entities/eh_thumbnail_sprite.dart';
 
 class EhGalleryDetail extends EhGallerySummary {
   final List<EhThumbnailSprite> thumbnailSprites; // 精灵图
   final int thumbnailPageCount; // 缩略图页面总数量
+  final List<EhGalleryComment> comments;
 
   EhGalleryDetail({
     // summary
@@ -20,5 +22,6 @@ class EhGalleryDetail extends EhGallerySummary {
     // detail
     required this.thumbnailSprites,
     required this.thumbnailPageCount,
+    required this.comments,
   });
 }

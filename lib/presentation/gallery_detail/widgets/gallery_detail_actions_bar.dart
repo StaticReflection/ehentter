@@ -8,16 +8,21 @@ class GalleryDetailActionsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        _Action(
-          icon: const Icon(Icons.auto_stories),
-          title: context.l10n.read,
-          onTap: onTapRead,
+    return SizedBox(
+      height: 80,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          spacing: 8,
+          children: [
+            _Action(
+              icon: const Icon(Icons.auto_stories),
+              title: context.l10n.read,
+              onTap: onTapRead,
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -31,18 +36,22 @@ class _Action extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 76,
-      height: 76,
+    return AspectRatio(
+      aspectRatio: 1.0,
       child: Card(
         child: InkWell(
           onTap: onTap,
           child: Column(
-            spacing: 8,
             mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 4,
             children: [
               icon,
-              Text(title, style: Theme.of(context).textTheme.labelMedium),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.labelMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
         ),

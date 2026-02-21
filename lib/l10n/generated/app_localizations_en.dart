@@ -18,6 +18,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clear => 'Clear';
 
   @override
+  String get comment => 'Comment';
+
+  @override
   String get gallery_detail_title => 'Gallery Detail';
 
   @override
@@ -31,6 +34,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_more_data_message => 'No more data';
+
+  @override
+  String get overview => 'Overview';
 
   @override
   String get read => 'Read';

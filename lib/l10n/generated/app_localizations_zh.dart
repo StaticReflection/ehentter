@@ -18,6 +18,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get clear => '清空';
 
   @override
+  String get comment => '评论';
+
+  @override
   String get gallery_detail_title => '画廊详情';
 
   @override
@@ -31,6 +34,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get no_more_data_message => '没有更多了';
+
+  @override
+  String get overview => '概览';
 
   @override
   String get read => '阅读';

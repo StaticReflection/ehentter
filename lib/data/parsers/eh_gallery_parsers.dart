@@ -8,9 +8,11 @@ import 'package:ehentter/data/models/eh_thumbnail_sprite_model.dart';
 import 'package:ehentter/data/parsers/eh_base_parser.dart';
 import 'package:ehentter/data/parsers/eh_dom_mixin.dart';
 import 'package:ehentter/domain/entities/eh_gallery_category.dart';
+import 'package:ehentter/domain/entities/eh_gallery_comment.dart';
 import 'package:ehentter/domain/entities/eh_gallery_page_info.dart';
 import 'package:ehentter/domain/entities/eh_gallery_tag_namespace.dart';
 import 'package:html/dom.dart';
+import 'package:intl/intl.dart';
 
 /// 画廊 URL 转 [EhGalleryIdModel]
 class EhGalleryUrlParser extends EhBaseParser<String, EhGalleryIdModel> {
@@ -260,6 +262,40 @@ class EhGalleryDetailParser extends EhBaseParser<Document, EhGalleryDetailModel>
           );
         });
       }),
+      comments: querySelectorAll(input.body!, '#cdiv div.c1', (comment) {
+        return EhGalleryComment(
+          username: querySelector(
+            comment,
+            'div.c3 a',
+            (username) => username.text,
+          ),
+          postedAt: querySelector(comment, 'div.c3', (el) {
+            final text = el.text;
+            final match = RegExp(
+              r'(\d{1,2}\s\w+\s\d{4},\s\d{2}:\d{2})',
+            ).firstMatch(text);
+            if (match == null) throw Exception('Timestamp format mismatch');
+            return DateFormat(
+              "d MMMM yyyy, HH:mm",
+              "en_US",
+            ).parse(match.group(0)!, true);
+          }),
+          content: querySelector(comment, 'div.c6', (el) {
+            return el.innerHtml
+                .replaceAll('<br>', '\n')
+                .replaceAll('<br/>', '\n')
+                .replaceAll('<br />', '\n')
+                .replaceAll(RegExp(r'<[^>]*>'), '')
+                .trim();
+          }),
+          score:
+              querySelector(comment, 'span[id^="comment_score_"]', (el) {
+                final cleaned = el.text.replaceAll(RegExp(r'[^-0-9]'), '');
+                return int.tryParse(cleaned) ?? 0;
+              }, required: false) ??
+              0, // 上传者
+        );
+      }, required: false),
     );
   }
 }
